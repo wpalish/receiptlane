@@ -87,11 +87,15 @@ const definition = {
     for (const e of rows(state, "expenses")) {
       required(minor(e.amount) > 0, "Расход должен быть положительным.");
       const report = byId(state, "reports", e.report),
-        old = changed(before, "expenses", e.id);
-      if (report.status !== "draft")
+        old = changed(before, "expenses", e.id),
+        previousReport = old && byId(before, "reports", old.report);
+      if (
+        report.status !== "draft" ||
+        (previousReport && previousReport.status !== "draft")
+      )
         required(
           old && JSON.stringify(old) === JSON.stringify(e),
-          "Верните отчёт в черновик перед правкой расходов.",
+          "Расходы можно менять и переносить только между черновиками отчётов.",
         );
     }
   },

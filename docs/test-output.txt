@@ -2,33 +2,39 @@ TAP version 13
 # Subtest: ReceiptLane: complete original workflow, calculation and rejected invalid transition
 ok 1 - ReceiptLane: complete original workflow, calculation and rejected invalid transition
   ---
-  duration_ms: 2.730584
+  duration_ms: 12.704708
   type: 'test'
   ...
 # Subtest: real file restart, optimistic conflict and validated restore into an empty database
 ok 2 - real file restart, optimistic conflict and validated restore into an empty database
   ---
-  duration_ms: 3.433125
+  duration_ms: 4.212833
   type: 'test'
   ...
 # Subtest: HTTP prevents anonymous reads and cross-origin/CSRF writes while authenticated workflow saves
 ok 3 - HTTP prevents anonymous reads and cross-origin/CSRF writes while authenticated workflow saves
   ---
-  duration_ms: 75.169833
+  duration_ms: 82.689666
   type: 'test'
   ...
 # Subtest: two products on one host use isolated session cookies and preserve both logins
 ok 4 - two products on one host use isolated session cookies and preserve both logins
   ---
-  duration_ms: 88.85675
+  duration_ms: 91.466667
   type: 'test'
   ...
-1..4
-# tests 4
+# Subtest: protected report expenses retain source and destination totals across moves, restart and restore
+ok 5 - protected report expenses retain source and destination totals across moves, restart and restore
+  ---
+  duration_ms: 34.32725
+  type: 'test'
+  ...
+1..5
+# tests 5
 # suites 0
-# pass 4
+# pass 5
 # fail 0
 # cancelled 0
 # skipped 0
 # todo 0
-# duration_ms 215.744709
+# duration_ms 262.746375

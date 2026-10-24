@@ -1,0 +1,75 @@
+{
+  "date": "2026-10-25",
+  "product": "receiptlane",
+  "baseline_commit": "bf9f3c9",
+  "defect": "Expense transfer checked only destination draft; source submitted/approved/reimbursed report total could change",
+  "before_fix": {
+    "regression_failed": true,
+    "statuses_reproduced": [
+      "submitted",
+      "approved",
+      "reimbursed"
+    ],
+    "source_total_before": "200.00",
+    "source_total_after": "100.00",
+    "destination_before": "50.00",
+    "destination_after": "150.00"
+  },
+  "policy": "Check both previous source and current destination report. Expense mutations and moves require drafts. Separate permitted return of submitted/approved report to draft remains usable; reimbursed history cannot return.",
+  "tests": {
+    "passed": 5,
+    "failed": 0,
+    "runtime": "v24.19.0",
+    "log": "docs/test-output.txt",
+    "regression": "tests/protected-expenses.test.js",
+    "coverage": [
+      "source submitted/approved/reimbursed transfer rejected",
+      "transfer with altered amount/evidence, direct amount edit, archive and destination-protected transfer rejected",
+      "all rejected writes preserve complete records/computed totals/revision/audit history",
+      "draft-to-draft move and permitted explicit return to draft remain usable",
+      "reimbursed report cannot return to draft",
+      "real file restart and validated empty-database restore preserve data/totals and protection",
+      "original independent approval/HTTP/optimistic conflict/session cookie checks remain passing"
+    ]
+  },
+  "browser": {
+    "data": "synthetic only, separate localhost8825 fixture",
+    "seed": "authenticated API, employee report, different admin approval and manual reimbursement mark",
+    "rejected_transfer": {
+      "all_saved_data_unchanged": true,
+      "both_totals_unchanged": [
+        "200.00",
+        "50.00"
+      ],
+      "source_status": "reimbursed",
+      "revision": 8,
+      "audit_events": 8
+    },
+    "draft_correction": {
+      "protected_source_report_and_expense_unchanged": true,
+      "draft_edit_saved": true,
+      "totals": [
+        "200.00",
+        "75.00"
+      ],
+      "source_status": "reimbursed",
+      "revision": 9,
+      "audit_events": 9
+    },
+    "after_reload": {
+      "protected_total": "200.00",
+      "draft_total": "75.00",
+      "manual_mark_disclaimer_visible": true
+    },
+    "screens": [
+      "docs/transfer-rejected.jpg",
+      "docs/totals-preserved.jpg"
+    ]
+  },
+  "limits": [
+    "Manual reimbursement mark is not a real bank transaction",
+    "No automatic correction of previously changed reports; manual reconciliation needed",
+    "No new public hosting, OCR, uploads, banking or accounting integration",
+    "Domain validation/error wording only; UI layout/schema unchanged; no new whole-interface or security audit"
+  ]
+}
