@@ -1,0 +1,58 @@
+[
+  {
+    "actor": "operator",
+    "collection": "reports",
+    "as": "r",
+    "data": {
+      "name": "Учебный отчёт",
+      "currency": "KZT",
+      "period": "2026-10-24",
+      "status": "draft"
+    }
+  },
+  {
+    "actor": "operator",
+    "collection": "expenses",
+    "data": {
+      "report": "$r",
+      "vendor": "Пример",
+      "date": "2026-10-24",
+      "amount": "2500",
+      "evidence": "Вымышленный чек TEST"
+    }
+  },
+  {
+    "actor": "operator",
+    "collection": "reports",
+    "id": "$r",
+    "data": {
+      "name": "Учебный отчёт",
+      "currency": "KZT",
+      "period": "2026-10-24",
+      "status": "submitted"
+    }
+  },
+  {
+    "actor": "operator",
+    "collection": "reports",
+    "id": "$r",
+    "error": "администратору",
+    "data": {
+      "name": "Учебный отчёт",
+      "currency": "KZT",
+      "period": "2026-10-24",
+      "status": "approved"
+    }
+  },
+  {
+    "collection": "reports",
+    "id": "$r",
+    "data": {
+      "name": "Учебный отчёт",
+      "currency": "KZT",
+      "period": "2026-10-24",
+      "status": "approved"
+    },
+    "expect": "Итого: 2500.00"
+  }
+]
